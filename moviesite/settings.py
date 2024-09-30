@@ -30,9 +30,7 @@ ALLOWED_HOSTS = ["127.0.0.1", ".onrender.com"]
 
 CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com/"]
 
-ALLOWED_HOSTS = [
-    'moviesite-jdaq.onrender.com',
-]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
