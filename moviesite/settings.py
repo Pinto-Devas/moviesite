@@ -30,7 +30,9 @@ ALLOWED_HOSTS = ["127.0.0.1", ".onrender.com"]
 
 CSRF_TRUSTED_ORIGINS = ["https://*.onrender.com/"]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'moviesite-jdaq.onrender.com',
+]
 
 
 # Application definition
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'staticpages.apps.StaticpagesConfig',
+    'movies.apps.MoviesConfig',
 ]
 
 MIDDLEWARE = [
