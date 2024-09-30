@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
 <h2>Todos os Filmes</h2>
 <section>
   <p>
@@ -9,5 +10,20 @@
     <a href="{% url 'movies:create' %}">Adicionar Novo Filme</a>
   </p>
 </section>
+
 {% if movie_list %}
-<section class="lista-de-cards">...</section>
+<section class="lista-de-cards">
+  <!-- Aqui você pode incluir a lógica de exibição dos filmes -->
+  {% for movie in movie_list %}
+  <article class="card">
+    <a href="{% url 'movies:detail' forloop.counter %}">
+      <img src="{{ movie.poster_url }}" alt="Poster do filme {{ movie.name}}" />
+    </a>
+    <p>{{ movie.name }} ({{ movie.release_year }})</p>
+  </article>
+  {% endfor %}
+</section>
+{% else %}
+<p>Não foi encontrado nenhum filme.</p>
+{% endif %}
+{% endblock content %}
