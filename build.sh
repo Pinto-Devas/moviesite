@@ -4,6 +4,8 @@ set -o errexit
 
 pip install -r requirements.txt
 
+pip install backports.zoneinfo --upgrade
+
 python manage.py collectstatic --no-input
 # adicione linhas abaixo
 python manage.py migrate
