@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="{% url 'movies:delete' movie.id %}" method="post">
+  {% csrf_token %}
+  <p>
+    Você tem certeza que deseja apagar o filme "{{ movie.name }} ({{movie.release_year }})"?
+  </p>
+  <button type="submit">Apagar</button>
+</form>
+{% endblock content %}

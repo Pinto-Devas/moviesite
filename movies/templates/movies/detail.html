@@ -1,13 +1,16 @@
-{% extends 'base.html' %} {% block title %} {{ movie.name }} ({{
-  movie.release_year }} {% endblock title %} {% block content %}
-  <h2>Detalhes do Filme {{ movie.name }} ({{ movie.release_year }})</h2>
-  
-  <section class="dados-de-filme">
-    <img src="{{ movie.poster_url }}" alt="Poster do filme {{ movie.name}}" />
-    <ul>
-      <li>Nome: {{ movie.name }}</li>
-      <li>Ano de Lançamento: {{ movie.release_year }}</li>
-    </ul>
-  </section>
-  
-  {% endblock content %}
+{% extends 'base.html' %} 
+{% block title %}
+  {{ movie.name }} ({{movie.release_year }})
+{% endblock title %}
+{% block content %}
+<h2>Detalhes do Filme {{ movie.name }} ({{ movie.release_year }})</h2>
+<section class="dados-de-filme">
+  <img src="{{ movie.poster_url }}" alt="Poster do filme {{ movie.name}}" />
+  <ul>
+    <li>Nome: {{ movie.name }}</li>
+    <li>Ano de Lançamento: {{ movie.release_year }}</li>
+    <li><a href="{% url 'movies:update' movie.id %}">Editar</a></li>
+    <li><a href="{% url 'movies:delete' movie.id %}">Apagar</a></li>
+  </ul>
+</section>
+{% endblock content %}
