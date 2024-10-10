@@ -4,10 +4,10 @@ set -o errexit
 
 pip install -r requirements.txt
 
-pip install backports.zoneinfo --upgrade
+pip install --upgrade pip setuptools wheel
 
 python manage.py collectstatic --no-input
-# adicione linhas abaixo
+
 python manage.py migrate
 
 # create superuser if missing
