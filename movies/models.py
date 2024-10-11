@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-
 class Movie(models.Model):
   name = models.CharField(max_length=255)
   release_year = models.IntegerField()
@@ -9,7 +8,6 @@ class Movie(models.Model):
 
   def __str__(self):
     return f'{self.name} ({self.release_year})'
-
 
 class Review(models.Model):
   author = models.ForeignKey(settings.AUTH_USER_MODEL,
@@ -20,3 +18,12 @@ class Review(models.Model):
 
   def __str__(self):
     return f'"{self.text}" - {self.author.username}'
+  
+class List(models.Model):
+  author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                              on_delete=models.CASCADE)
+  name = models.CharField(max_length=255)
+  movies = models.ManyToManyField(Movie)
+
+  def __str__(self):
+    return f'{self.name} by {self.author}'
