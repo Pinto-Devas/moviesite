@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Listas
+{% endblock title %}
+
+{% block content %}
+<h2>Listas de Filmes</h2>
+
+<section>
+  {% for list in list_list %}
+  <hr>
+  <article>
+    <header>
+      <h3>{{list.name}} (de {{ list.author }}) </h3>
+    </header>
+    <div class="lista-de-cards">
+      {% for movie in list.movies.all %}
+      <div class="card">
+        <a href="{% url 'movies:detail' movie.id %}">
+          <img src="{{ movie.poster_url }}" alt="Poster do filme {{ movie.name}}">
+        </a>
+        <p>{{ movie.name }} ({{ movie.release_year }})</p>
+      </div>
+      {% endfor %}
+    </div>
+  </article>
+  {% endfor %}
+
+  <a href="{% url 'movies:create-list' %}"><button>Crie sua Lista</button></a>
+</section>
+
+{% endblock content %}

@@ -8,7 +8,10 @@
   <img src="{{ movie.poster_url }}" alt="Poster do filme {{ movie.name}}" />
   <ul>
     <li>Nome: {{ movie.name }}</li>
-    <li>Ano de Lançamento: {{ movie.release_year }}</li>
+    <li>Ano de Lançamento: {{ movie.release_year }} </li>
+  {% if movie.list_set.all %}
+    <li>Incluso nas listas: {{ movie.list_set.all|join:", " }} </li>
+  {% endif %}
     <li><a href="{% url 'movies:update' movie.id %}">Editar</a></li>
     <li><a href="{% url 'movies:delete' movie.id %}">Apagar</a></li>
   </ul>

@@ -10,6 +10,8 @@ from .models import Movie
 from .forms import MovieForm
 from .models import Movie, Review
 from .forms import MovieForm, ReviewForm
+from django.urls import reverse, reverse_lazy
+from .models import Movie, Review, List
 
 def detail_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
@@ -94,3 +96,14 @@ def create_review(request, movie_id):
     form = ReviewForm()
   context = {'form': form, 'movie': movie}
   return render(request, 'movies/review.html', context)
+
+class ListListView(generic.ListView):
+  model = List
+  template_name = 'movies/lists.html'
+
+
+class ListCreateView(generic.CreateView):
+  model = List
+  template_name = 'movies/create_list.html'
+  fields = ['name', 'author', 'movies']
+  success_url = reverse_lazy('movies:lists')
