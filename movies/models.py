@@ -27,3 +27,19 @@ class List(models.Model):
 
   def __str__(self):
     return f'{self.name} by {self.author}'
+
+class Provider(models.Model):
+  movie = models.OneToOneField(
+    Movie,
+    on_delete=models.CASCADE,
+    primary_key=True,
+  )
+  service = models.CharField(max_length=255, blank=True)
+  has_flat_price = models.BooleanField(default=False)
+  price = models.DecimalField(max_digits=6,
+                              decimal_places=2,
+                              null=True,
+                              blank=True)
+
+  def __str__(self):
+    return f'{self.service} @ {self.price if self.price else "flat"}'

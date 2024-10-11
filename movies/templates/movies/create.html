@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 
+{% block title %}
+Criar Filme
+{% endblock title %}
+
 {% block content %}
-<h2>Inserir Novo Filme</h2>
-<form method="post" action="{% url 'movies:create' %}">
+<h2>Adicionar Filme</h2>
+
+<form action="{% url 'movies:create' %}" method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ movie_form.as_p }}
+  {{ provider_form.as_p }}
   <button type="submit">Criar</button>
 </form>
 

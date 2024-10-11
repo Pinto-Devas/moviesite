@@ -2,6 +2,8 @@ from django.forms import ModelForm
 from .models import Movie
 from django.forms import ModelForm
 from .models import Movie, Review
+from django.forms import ModelForm
+from .models import Movie, Review, Provider
 
 class MovieForm(ModelForm):
   class Meta:
@@ -28,3 +30,17 @@ class ReviewForm(ModelForm):
       'author': 'Usuário',
       'text': 'Resenha',
     }
+
+class ProviderForm(ModelForm):
+  class Meta:
+    model = Provider
+    fields = [
+      'service',
+      'has_flat_price',
+      'price',
+    ]
+    labels = {
+      'service': 'Serviço de Streaming',
+      'has_flat_price': 'FLAT?',
+      'price': 'Preço',
+    } 
