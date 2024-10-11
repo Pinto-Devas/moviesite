@@ -6,6 +6,8 @@ from django.urls import reverse
 from .models import Movie
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from .models import Movie
+from .forms import MovieForm
 
 def detail_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
@@ -35,7 +37,9 @@ def create_movie(request):
     movie.save()
     return HttpResponseRedirect(reverse('movies:detail', args=(movie.id, )))
   else:
-    return render(request, 'movies/create.html', {})
+    form = MovieForm()
+    context = {'form': form}
+    return render(request, 'movies/create.html', context)
   
 def update_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
