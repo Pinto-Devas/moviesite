@@ -13,4 +13,34 @@
     <li><a href="{% url 'movies:delete' movie.id %}">Apagar</a></li>
   </ul>
 </section>
+
+<hr>
+
+<section>
+  <header>
+    <h3>Resenhas</h3>
+  </header>
+  <ul>
+    {% if movie.review_set.all %}
+      {% for review in movie.review_set.all %}
+        <figure>
+          <blockquote>
+            "{{ review.text }}"
+          </blockquote>
+          <figcaption>—{{ review.author }}</figcaption>
+        </figure>
+      {% endfor %}
+    {% else %}
+      <p>Ainda não existe nenhuma resenha para este filme.</p>
+    {% endif %}
+  </ul>
+</section>
+
+</ul>
+    
+<hr>
+
+<a href="{% url 'movies:review' movie.pk %}"><button>Crie sua Resenha</button></a>
+</section>
+
 {% endblock content %}

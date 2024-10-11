@@ -8,6 +8,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .models import Movie
 from .forms import MovieForm
+from .models import Movie, Review
+from .forms import MovieForm, ReviewForm
 
 def detail_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
@@ -75,3 +77,20 @@ def delete_movie(request, movie_id):
 
   context = {'movie': movie}
   return render(request, 'movies/delete.html', context)
+
+def create_review(request, movie_id):
+  movie = get_object_or_404(Movie, pk=movie_id)
+  if request.method == 'POST':
+    form = ReviewForm(request.POST)
+    if form.is_valid():
+      review_author = form.cleaned_data['author']
+      review_text = form.cleaned_data['text']
+      review = Review(author=review_author,
+                      text=review_text,
+                      movie=movie)
+      review.save()
+      return HttpResponseRedirect(reverse('movies:detail', args=(movie_id, )))
+  else:
+    form = ReviewForm()
+  context = {'form': form, 'movie': movie}
+  return render(request, 'movies/review.html', context)

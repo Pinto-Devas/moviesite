@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Resenhar Filme {{ movie.name }} ({{ movie.release_year }})</h2>
+
+<form action="{% url 'movies:review' movie.id %}" method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Postar Resenha</button>
+</form>
+
+<p><a href="{% url 'movies:detail' movie.id %}">Voltar para a página do filme</a></p>
+{% endblock content %}
