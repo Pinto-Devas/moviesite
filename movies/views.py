@@ -28,30 +28,41 @@ def search_movies(request):
 
 def create_movie(request):
   if request.method == 'POST':
-    movie_name = request.POST['name']
-    movie_release_year = request.POST['release_year']
-    movie_poster_url = request.POST['poster_url']
-    movie = Movie(name=movie_name,
-                  release_year=movie_release_year,
-                  poster_url=movie_poster_url)
-    movie.save()
-    return HttpResponseRedirect(reverse('movies:detail', args=(movie.id, )))
+    form = MovieForm(request.POST)
+    if form.is_valid():
+      movie_name = form.cleaned_data['name']
+      movie_release_year = form.cleaned_data['release_year']
+      movie_poster_url = form.cleaned_data['poster_url']
+      movie = Movie(name=movie_name,
+                    release_year=movie_release_year,
+                    poster_url=movie_poster_url)
+      movie.save()
+      return HttpResponseRedirect(reverse('movies:detail', args=(movie.id, )))
   else:
     form = MovieForm()
-    context = {'form': form}
-    return render(request, 'movies/create.html', context)
+  context = {'form': form}
+  return render(request, 'movies/create.html', context)
   
 def update_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
 
   if request.method == "POST":
-    movie.name = request.POST['name']
-    movie.release_year = request.POST['release_year']
-    movie.poster_url = request.POST['poster_url']
-    movie.save()
-    return HttpResponseRedirect(reverse('movies:detail', args=(movie.id, )))
+    form = MovieForm(request.POST)
+    if form.is_valid():
+      movie.name = form.cleaned_data['name']
+      movie.release_year = form.cleaned_data['release_year']
+      movie.poster_url = form.cleaned_data['poster_url']
+      movie.save()
+      return HttpResponseRedirect(reverse('movies:detail', args=(movie.id, )))
+  else:
+    form = MovieForm(
+      initial={
+        'name': movie.name,
+        'release_year': movie.release_year,
+        'poster_url': movie.poster_url
+      })
 
-  context = {'movie': movie}
+  context = {'movie': movie, 'form': form}
   return render(request, 'movies/update.html', context)
 
 
