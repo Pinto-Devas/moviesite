@@ -14,6 +14,8 @@ from django.urls import reverse, reverse_lazy
 from .models import Movie, Review, List
 from .models import Movie, Review, List, Provider
 from .forms import MovieForm, ReviewForm, ProviderForm
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 def detail_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
@@ -45,6 +47,8 @@ def search_movies(request):
     context = {"movie_list": movie_list}
   return render(request, 'movies/search.html', context)
 
+@login_required
+@permission_required('movies.add_movie')
 def create_movie(request):
   if request.method == 'POST':
     movie_form = MovieForm(request.POST)
@@ -117,7 +121,7 @@ class ListListView(generic.ListView):
   template_name = 'movies/lists.html'
 
 
-class ListCreateView(generic.CreateView):
+class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
   model = List
   template_name = 'movies/create_list.html'
   fields = ['name', 'author', 'movies']

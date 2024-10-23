@@ -5,10 +5,9 @@
   <p>
     Muitos resultados? <a href="{% url 'movies:search' %}">Buscar Filmes</a>
   </p>
-  <p>
-    Não encontrou o filme?
-    <a href="{% url 'movies:create' %}">Adicionar Novo Filme</a>
-  </p>
+  {% if perms.movies.add_movie %}
+    <p>Não encontrou o filme? <a href="{% url 'movies:create' %}">Adicionar Novo Filme</a></p>
+  {% endif%}
 </section>
 
 {% if movie_list %}
