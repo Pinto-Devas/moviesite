@@ -100,7 +100,7 @@ def create_review(request, movie_id):
   if request.method == 'POST':
     form = ReviewForm(request.POST)
     if form.is_valid():
-      review_author = form.cleaned_data['author']
+      review_author = request.user
       review_text = form.cleaned_data['text']
       review = Review(author=review_author,
                       text=review_text,
