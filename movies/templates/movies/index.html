@@ -25,4 +25,18 @@
 {% else %}
 <p>Não foi encontrado nenhum filme.</p>
 {% endif %}
+
+{% if last_movies %}
+<hr>
+<h2>Últimos vistos</h2>
+<section class="lista-de-cards">
+    {% for last_movie in last_movies %}
+    <article class="small-card">
+        <a href="{% url 'movies:detail' last_movie.id %}"><img src="{{ last_movie.poster_url }}"
+                alt="Poster do filme {{ last_movie.name}}"></a>
+    </article>
+    {% endfor %}
+</section>
+{% endif %}
+
 {% endblock content %}
