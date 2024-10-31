@@ -1,4 +1,5 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
+
 {% block content %}
 <h2>Todos os Filmes</h2>
 <section>
@@ -6,7 +7,7 @@
     Muitos resultados? <a href="{% url 'movies:search' %}">Buscar Filmes</a>
   </p>
   {% if perms.movies.add_movie %}
-    <p>Não encontrou o filme? <a href="{% url 'movies:create' %}">Adicionar Novo Filme</a></p>
+    <p>Não encontrou o filme? <a href="{% url 'movies:create' %}">Adicionar</a> ou <a href="{% url 'movies:import' %}">Importar</a> Novo Filme</p>
   {% endif%}
 </section>
 
