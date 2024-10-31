@@ -128,3 +128,4 @@ class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.Create
   template_name = 'movies/create_list.html'
   fields = ['name', 'author', 'movies']
   success_url = reverse_lazy('movies:lists')
+  permission_required = 'movies.add_list'
