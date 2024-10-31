@@ -20,8 +20,12 @@
     {% if movie.list_set.all %}
       <li>Incluso nas listas: {{ movie.list_set.all|join:", " }} </li>
     {% endif %}
-    <li><a href="{% url 'movies:update' movie.id %}">Editar</a></li>
-    <li><a href="{% url 'movies:delete' movie.id %}">Apagar</a></li>
+    {% if perms.movies.change_movie %}
+      <li><a href="{% url 'movies:update' movie.id %}">Editar</a></li>
+    {% endif %}
+    {% if perms.movies.delete_movie %}
+      <li><a href="{% url 'movies:delete' movie.id %}">Apagar</a></li>
+    {% endif %}
   </ul>
 </section>
 

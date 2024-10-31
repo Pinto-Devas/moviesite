@@ -65,7 +65,9 @@ def create_movie(request):
     provider_form = ProviderForm()
   context = {'movie_form': movie_form, 'provider_form': provider_form}
   return render(request, 'movies/create.html', context)
-  
+
+@login_required
+@permission_required('movies.change_movie')  
 def update_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
 
@@ -88,7 +90,8 @@ def update_movie(request, movie_id):
   context = {'movie': movie, 'form': form}
   return render(request, 'movies/update.html', context)
 
-
+@login_required
+@permission_required('movies.delete_movie')  
 def delete_movie(request, movie_id):
   movie = get_object_or_404(Movie, pk=movie_id)
 
@@ -119,7 +122,6 @@ def create_review(request, movie_id):
 class ListListView(generic.ListView):
   model = List
   template_name = 'movies/lists.html'
-
 
 class ListCreateView(LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
   model = List
